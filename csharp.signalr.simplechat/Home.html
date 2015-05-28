@@ -1,0 +1,43 @@
+﻿<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <title></title>
+</head>
+<body>
+    <div id="hitCountValue">0</div>
+    <div id="chats" style="background:silver;">
+
+    </div>
+    <input type="text" id="message" />
+
+    <script src="Scripts/jquery-1.6.4.js"></script>
+    <script src="Scripts/jquery.signalR-2.2.0.js"></script>
+
+    <script type="text/javascript">
+        $(function () {
+            var connection = $.hubConnection();
+            var hub = connection.createHubProxy("chat");
+            hub.on("hit", function (hitCount) {
+                $("#hitCountValue").text(hitCount);
+            });
+            hub.on("message", function (who, message) {
+                $("#chats").append($('<div>').html('<b>' + who + '</b>:' + message + '<br>'));
+            });
+            connection.start(function () {
+                hub.invoke("hit");
+            });
+            $('#message').keydown(function (event) {
+                if (event.keyCode == 13) {
+                    var who = connection.id;
+                    var message = $(this).val();
+
+                    if (message.length > 0) {
+                        $(this).val('');
+                        hub.invoke("message", who, message);
+                    }
+                }
+            });
+        });
+    </script>
+</body>
+</html>
