@@ -1,0 +1,51 @@
+﻿<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <title></title>
+</head>
+<body>
+    <div id="hitCountValue">ЧААТ</div>
+    <div style="border: 1px solid #ccc; width: 800px; position: fixed">
+        <div style="background: #ececec; padding: 5px 10px">
+            <label>Нэр: </label>
+            <input type="text" id="name" style="width:100px;padding:5px;" />
+            <label>Мессеж: </label>
+            <input type="text" id="message" style="width:400px;padding:5px;" />
+        </div>
+        <div id="chats" style="background: #dcdcdc; width: 800px; height: 500px;overflow-x: hidden;overflow-y:auto">
+
+        </div>
+    </div>
+
+    <script src="Scripts/jquery-1.6.4.js"></script>
+    <script src="Scripts/jquery.signalR-2.2.0.js"></script>
+
+    <script type="text/javascript">
+        $(function () {
+            var connection = $.hubConnection();
+            var hub = connection.createHubProxy("chat");
+            hub.on("hit", function (hitCount) {
+                $("#hitCountValue").text(hitCount + " хүн чаатлаж байна...");
+            });
+            hub.on("message", function (who, message) {
+                var line = '<b style="margin-right:5px">' + who + '</b> : <span style="margin-left:5px">' + message + '</span>';
+                $("#chats").prepend($('<div style="display:block;margin:5px 10px">').html(line));
+            });
+            connection.start(function () {
+                hub.invoke("hit");
+            });
+            $('#message').keydown(function (event) {
+                if (event.keyCode == 13) {
+                    var who = $("#name").val();
+                    var message = $(this).val();
+
+                    if (message.length > 0) {
+                        $(this).val('');
+                        hub.invoke("message", who, message);
+                    }
+                }
+            });
+        });
+    </script>
+</body>
+</html>

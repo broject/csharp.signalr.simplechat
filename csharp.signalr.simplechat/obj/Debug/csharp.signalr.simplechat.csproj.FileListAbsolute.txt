@@ -15,6 +15,5 @@ C:\Users\boroo\Documents\Visual Studio 2013\Projects\csharp.signalr.simplechat\c
 C:\Users\boroo\Documents\Visual Studio 2013\Projects\csharp.signalr.simplechat\csharp.signalr.simplechat\bin\Microsoft.Owin.Host.SystemWeb.xml
 C:\Users\boroo\Documents\Visual Studio 2013\Projects\csharp.signalr.simplechat\csharp.signalr.simplechat\bin\Microsoft.Owin.Security.xml
 C:\Users\boroo\Documents\Visual Studio 2013\Projects\csharp.signalr.simplechat\csharp.signalr.simplechat\bin\Newtonsoft.Json.xml
-C:\Users\boroo\Documents\Visual Studio 2013\Projects\csharp.signalr.simplechat\csharp.signalr.simplechat\obj\Debug\csharp.signalr.simplechat.csprojResolveAssemblyReference.cache
 C:\Users\boroo\Documents\Visual Studio 2013\Projects\csharp.signalr.simplechat\csharp.signalr.simplechat\obj\Debug\WebApplication1.dll
 C:\Users\boroo\Documents\Visual Studio 2013\Projects\csharp.signalr.simplechat\csharp.signalr.simplechat\obj\Debug\WebApplication1.pdb

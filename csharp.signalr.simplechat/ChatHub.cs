@@ -12,9 +12,34 @@ namespace WebApplication1
     {
         static int _hitCount = 0;
 
-        public void Message(string who, string message) 
+        protected string GetIpAddress()
         {
-            Clients.All.message(who, message);
+            string ipAddress;
+            object tempObject;
+
+            Context.Request.Environment.TryGetValue("server.RemoteIpAddress", out tempObject);
+
+            if (tempObject != null)
+            {
+                ipAddress = (string)tempObject;
+            }
+            else
+            {
+                ipAddress = "";
+            }
+
+            return ipAddress;
+        }
+
+        public void Message(string who, string message)
+        {
+            string ip = GetIpAddress();
+            who = who + " ( " + ip + " )";
+            if (string.IsNullOrEmpty(message)) return;
+            if (who.Length > 50) who = who.Substring(0, 30);
+            if (message.Length > 160) message = message.Substring(0, 160);
+
+            Clients.All.message(HttpUtility.HtmlEncode(who), HttpUtility.HtmlEncode(message));
         }
 
         public void Hit()
